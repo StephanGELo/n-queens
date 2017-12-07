@@ -180,7 +180,7 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      console.log(minorDiagonalColumnIndexAtFirstRow);
+      
       var rows = this.rows();
       var size = this.get('n');
       var sum = 0;
