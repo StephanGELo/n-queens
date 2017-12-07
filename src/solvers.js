@@ -16,9 +16,32 @@
 
 
 window.findNRooksSolution = function(n) {
-  var solution = undefined; //fixme
-
+  var solution = []; 
+  var board = new Board(matrix);
+  var attempts = 0;
+  var piecesAdded = 0;
+  
+  for (var i = 0; i < n; i++) {
+    var rowConflicts = board.hasRowConflictAt(i);
+    if (!rowConflicts) {
+      for (var j = 0; j < n; j++) {
+        var columnConflicts = board.hasColConflictAt(j);
+        if (!columnConflicts) {
+          board.togglePiece(i, j);
+          piecesAdded++;
+          
+          // test to see if piecesAdded = n
+          // go through i-loop and tell attempt = n^2 times
+          // offsetting the i-loop by attemps
+          // loop back into board when placing the first attempt at row 3:col 1
+          // recursion to loop through everything
+        }
+      }
+    }
+  }
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
+  
+  
   return solution;
 };
 
