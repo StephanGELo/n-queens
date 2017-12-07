@@ -79,11 +79,24 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      // console.log("rowIndex: " + rowIndex);
+      var rows = this.rows();
+      var row = rows[rowIndex];
+      return row.reduce((acc, item) => acc + item) > 1;
+    
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
+      var size = this.get('n');
+      // console.log(size);
+      for (var i = 0; i < size; i++) {
+        var isConflicted = this.hasRowConflictAt(i);
+        if (isConflicted) {
+          return true;
+        }
+      }
+
       return false; // fixme
     },
 
@@ -94,12 +107,28 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      // console.log("ColIndex: " + colIndex);
+      var rows = this.rows();
+      var sum = 0;
+      rows.forEach(row => {
+        sum += row[colIndex];
+      });
+      
+      return sum > 1; 
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      var size = this.get('n');
+        
+      for (var i = 0; i < size; i++) {
+        var isConflicted = this.hasColConflictAt(i);
+        if (isConflicted) {
+          return true;
+        }
+      }
+      
+      return false;
     },
 
 
@@ -109,12 +138,39 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      //gives us the -2 diagnol 
+      //go through each row
+        //look at the coloumn in that row for col - row = input
+        //sum += row[row + input]
+      var rows = this.rows();
+      var size = this.get('n');
+      var sum = 0;
+      for (var rowNum = 0; rowNum < size; rowNum++) {
+        var column = rowNum + majorDiagonalColumnIndexAtFirstRow;
+        //feed rowNum and column into the true false test
+        // if true then add
+        if (this._isInBounds(rowNum, column)) {
+          sum += rows[rowNum][column];
+        }
+      }
+      
+      return sum > 1;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      var size = this.get('n');
+       
+      for (var i = 0; i < size; i++) {
+        for (var j = 0; j < size; j++) {
+          var isConflicted = this.hasMajorDiagonalConflictAt(i - j);
+          if (isConflicted) {
+            return true;
+          }
+        }
+      }
+      
+      return false; 
     },
 
 
