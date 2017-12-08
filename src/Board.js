@@ -38,7 +38,7 @@
     },
 
     hasAnyRooksConflicts: function() {
-      return this.hasAnyRowConflicts() || this.hasAnyColConflicts();
+      return this.hasAnyColConflicts();
     },
 
     hasAnyQueenConflictsOn: function(rowIndex, colIndex) {
